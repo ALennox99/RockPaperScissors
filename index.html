@@ -7,19 +7,62 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <button onclick="playRound()">Play</button>
+    <p id="log"></p>
 </body>
-<Script>
 
-console.log("Hello Niggas")
+<script>
+    let playerScore = 0;
+    let computerScore = 0;
 
+    function playRound() {
+      if (playerScore >= 5 || computerScore >= 5) {
+        alert("Game over! Refresh to play again.");
+        return;
+      }
 
-function getComputerChoice() {
-    return Math.floor(Math.random() * 3);
-}
+      let choice = prompt("Choose an option:\n1. Rock\n2. Paper\n3. Scissors");
+      let compsays = (Math.floor(Math.random() * 3) + 1).toString();
 
-console.log("Computer says " + getComputerChoice())
+      let log = document.getElementById("log");
 
-</Script>
+      console.log(`Computer says: ${compsays}`);
+      console.log(`Player says: ${choice}`);
+
+      if (choice === compsays) {
+        alert("Draw!");
+      } else if (choice === "2" && compsays === "1") {
+        alert("Paper beats Rock! Player wins this round.");
+        playerScore++;
+      } else if (choice === "3" && compsays === "1") {
+        alert("Scissors loses to Rock :( Computer wins this round.");
+        computerScore++;
+      } else if (choice === "2" && compsays === "3") {
+        alert("Paper loses to Scissors :( Computer wins this round.");
+        computerScore++;
+      } else if (choice === "3" && compsays === "2") {
+        alert("Scissors beats Paper! Player wins this round.");
+        playerScore++;
+      } else if (choice === "1" && compsays === "3") {
+        alert("Rock beats Scissors! Player wins this round.");
+        playerScore++;
+      } else if (choice === "1" && compsays === "2") {
+        alert("Rock loses to Paper :( Computer wins this round.");
+        computerScore++;
+      } else {
+        alert("Invalid option.");
+      }
+
+      // Update the log with current scores
+      log.innerText = `Player (${playerScore}) vs Computer (${computerScore})`;
+
+      // Check for winner
+      if (playerScore === 5) {
+        alert("🎉 Player wins the game!");
+      } else if (computerScore === 5) {
+        alert("💻 Computer wins the game!");
+      }
+    }
+  </script>
 
 </html>
